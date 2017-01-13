@@ -49,6 +49,7 @@ public class Enemy extends MovingEntity
 		{
 			Main.player.gotHit();
 			Main.toBeDestroyed.add(this);
+			Main.toBeAdded.add(new Explosion(x, y, 8, 8, 2, EntityType.Explosion, .8f, .2f, .2f));
 		}
 	}
 }

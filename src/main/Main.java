@@ -8,9 +8,11 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
+import data.Drawer;
 import data.EntityType;
 import data.Text;
 import entity.Enemy;
+import entity.Hazard;
 import entity.MovingEntity;
 import entity.Player;
 import entity.Star;
@@ -24,6 +26,7 @@ public class Main
 	public static Player player;
 	public static List<MovingEntity> entity;
 	public static List<MovingEntity> toBeDestroyed;
+	public static List<MovingEntity> toBeAdded;
 		
 	public void createDisplay() 
 	{
@@ -64,9 +67,10 @@ public class Main
 	
 	public static void init()
 	{
-		player = new Player(20, HEIGHT/2, 40, 10, 3, EntityType.Player);
+		player = new Player(20, HEIGHT/2, 40, 30, 3, EntityType.Player);
 		entity = new ArrayList<MovingEntity>();
 		toBeDestroyed = new ArrayList<MovingEntity>();
+		toBeAdded = new ArrayList<MovingEntity>();
 	}
 	
 	private void render() 
@@ -85,6 +89,7 @@ public class Main
 	private void update() 
 	{
 		destroy();
+		add();
 		
 		player.update();
 		for(MovingEntity e : entity)
@@ -94,19 +99,30 @@ public class Main
 			if(e.getType() == EntityType.Enemy)
 				e.checkCollision(player);
 			
+			if(e.getType() == EntityType.Hazard)
+				e.checkCollision(player);
+			
 			if(e.getType() == EntityType.Missile)
 			{
 				for(MovingEntity ent : entity)
 				{
 					if(ent.getType() == EntityType.Enemy)
-						e.checkCollision(ent);					
+						e.checkCollision(ent);
+					
+					if(ent.getType() == EntityType.Hazard)
+						e.checkCollision(ent);
 				}
 			}
 		}
 		
-		if(enemySpawnSpeed >= 100 - score/30)
+		if(enemySpawnSpeed >= 100 - score/100)
 		{
-			spawnEnemies();
+			int rand = (int) Math.round(Math.random());
+			if(rand == 0)
+				spawnEnemies();
+			else
+				spawnHazards();
+			
 			enemySpawnSpeed = 0;
 		}
 		else
@@ -123,7 +139,7 @@ public class Main
 	
 	private void spawnStar() 
 	{
-		int yAxis = (int) (50 + Math.random() * HEIGHT-100);
+		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
 		int size = (int) (1 + Math.random() * 19);
 		int speed = (int) (1 + Math.random());
 		entity.add(0, new Star(WIDTH+100, yAxis, size, size, speed, EntityType.Star));
@@ -131,8 +147,15 @@ public class Main
 
 	private void spawnEnemies() 
 	{
-		int rand = (int) (50 + Math.random() * HEIGHT-100);
+		int rand = (int) (50 + Math.random() * HEIGHT  - 50);
 		entity.add(new Enemy(WIDTH+100, rand, 40, 30, 2, EntityType.Enemy));
+	}
+	
+	private void spawnHazards()
+	{
+		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
+		int size = (int) (50 + Math.random() * 50);
+		entity.add(new Hazard(WIDTH+100, yAxis, size, size, 2, EntityType.Hazard));
 	}
 
 	private void destroy() 
@@ -144,12 +167,15 @@ public class Main
 		
 		toBeDestroyed.clear();
 	}
-
-	public static void main(String args[])
+	
+	private void add()
 	{
-		Main display = new Main();
-		init();
-		display.createDisplay();
+		for(MovingEntity e : toBeAdded)
+		{
+			entity.add(e);
+		}
+		
+		toBeAdded.clear();
 	}
 
 	public static void gameOver() 
@@ -161,15 +187,13 @@ public class Main
 	public void drawBackground()
 	{
 		GL11.glColor3f(0.2f, 0.2f, 0.2f);
-		
-		GL11.glBegin(GL11.GL_QUADS);
-		{
-			GL11.glVertex2f(0, 0);
-			GL11.glVertex2f(0 + WIDTH, 0);
-			GL11.glVertex2f(0 + WIDTH, 0 + HEIGHT);
-			GL11.glVertex2f(0, 0 + HEIGHT);
-		}
-		GL11.glEnd();
-	
+		Drawer.drawRect(0, 0, WIDTH, HEIGHT);
+	}
+
+	public static void main(String args[])
+	{
+		Main display = new Main();
+		init();
+		display.createDisplay();
 	}
 }

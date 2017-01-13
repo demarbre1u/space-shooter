@@ -3,6 +3,7 @@ package entity;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
+import data.Drawer;
 import data.EntityType;
 import main.Main;
 
@@ -47,8 +48,8 @@ public class Player extends MovingEntity
 		checkForInputs();
 		if(shotDelay < 30)
 			shotDelay++;
-		else
-			updateBoundBox();
+		
+		updateBoundBox();
 		
 		if(lifeStock <= 0)
 			Main.gameOver();
@@ -104,10 +105,10 @@ public class Player extends MovingEntity
 		GL11.glColor3f(1,1,1);
 		GL11.glBegin(GL11.GL_QUADS);
 		{
-			GL11.glVertex2f(x, y-10);
-			GL11.glVertex2f(x + w, y);
-			GL11.glVertex2f(x + w, y + h);
-			GL11.glVertex2f(x, y + h+10);
+			GL11.glVertex2f(x, y);
+			GL11.glVertex2f(x + w, y+10);
+			GL11.glVertex2f(x + w, y + h-10);
+			GL11.glVertex2f(x, y + h );
 		}
 		GL11.glEnd();
 	}

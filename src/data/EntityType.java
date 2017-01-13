@@ -5,5 +5,7 @@ public enum EntityType
 	Player, 
 	Enemy, 
 	Missile, 
-	Star
+	Star, 
+	Explosion, 
+	Hazard
 }

@@ -2,6 +2,7 @@ package entity;
 
 import org.lwjgl.opengl.GL11;
 
+import data.Drawer;
 import data.EntityType;
 import main.Main;
 
@@ -33,14 +34,7 @@ public class Missile extends MovingEntity
 	public void drawMissile()
 	{
 		GL11.glColor3f(1,1,1);
-		GL11.glBegin(GL11.GL_QUADS);
-		{
-			GL11.glVertex2f(x, y);
-			GL11.glVertex2f(x + w, y);
-			GL11.glVertex2f(x + w, y + h);
-			GL11.glVertex2f(x, y + h);
-		}
-		GL11.glEnd();
+		Drawer.drawRect(x, y, w, h);
 	}
 
 	@Override
@@ -48,10 +42,14 @@ public class Missile extends MovingEntity
 	{
 		if(boundBox.intersects(enemy.boundBox))
 		{
+			if(enemy.getType() == EntityType.Enemy)
+			{
+				Main.toBeAdded.add(new Explosion(enemy.x, enemy.y, 8, 8, 2, EntityType.Explosion, .8f, .2f, .2f));
+				Main.toBeDestroyed.add(this);
+				Main.toBeDestroyed.add(enemy);
+				Main.score += 20;
+			}
 			Main.toBeDestroyed.add(this);
-			Main.toBeDestroyed.add(enemy);
-			
-			Main.score += 20;
 		}
 	}
 }
