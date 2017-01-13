@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -22,11 +23,13 @@ public class Main
 	public static int WIDTH = 600, HEIGHT = 400;
 	private int enemySpawnSpeed = 200;
 	private int starSpawnSpeed = 100;
-	public static int score = 0;
+	public static int score;
 	public static Player player;
 	public static List<MovingEntity> entity;
 	public static List<MovingEntity> toBeDestroyed;
 	public static List<MovingEntity> toBeAdded;
+	
+	private static boolean gameOver;
 		
 	public void createDisplay() 
 	{
@@ -71,6 +74,8 @@ public class Main
 		entity = new ArrayList<MovingEntity>();
 		toBeDestroyed = new ArrayList<MovingEntity>();
 		toBeAdded = new ArrayList<MovingEntity>();
+		gameOver = false;
+		score = 0;
 	}
 	
 	private void render() 
@@ -82,8 +87,16 @@ public class Main
 		}
 		
 		GL11.glColor3f(1, 1, 1);
-		player.render();
 		Text.drawString("Score : " + score, 10, HEIGHT-20);
+	
+		if(! gameOver)
+			player.render();
+		else
+		{
+			GL11.glColor3f(1, 1, 1);
+			Text.drawString("GAME OVER", WIDTH/2 - 30, HEIGHT/2 + 10);
+			Text.drawString("Press 'R' to restart", WIDTH/2 - 60, HEIGHT/2 - 40);
+		}
 	}
 
 	private void update() 
@@ -91,10 +104,32 @@ public class Main
 		destroy();
 		add();
 		
-		player.update();
+		checkCollisions();
+		spawningEntities();
+		
+		if(! gameOver)
+		{
+			player.update();
+		}
+		else
+			checkForRestart();
+	}
+	
+	private void checkForRestart()
+	{
+		if(Keyboard.isKeyDown(Keyboard.KEY_R))
+		{
+			init();
+		}
+	}
+	
+	private void checkCollisions()
+	{
 		for(MovingEntity e : entity)
 		{
 			e.update();
+			if(player == null)
+				continue;
 			
 			if(e.getType() == EntityType.Enemy)
 				e.checkCollision(player);
@@ -114,7 +149,10 @@ public class Main
 				}
 			}
 		}
-		
+	}
+	
+	private void spawningEntities()
+	{
 		if(enemySpawnSpeed >= 100 - score/100)
 		{
 			int rand = (int) Math.round(Math.random());
@@ -180,8 +218,8 @@ public class Main
 
 	public static void gameOver() 
 	{
-		System.out.print("You lost.\nGame is over!\nScore : " + score);
-		System.exit(0);
+		gameOver = true;
+		player = null;
 	}
 	
 	public void drawBackground()

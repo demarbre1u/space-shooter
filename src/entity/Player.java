@@ -2,8 +2,6 @@ package entity;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
-import data.Drawer;
 import data.EntityType;
 import main.Main;
 
@@ -52,7 +50,10 @@ public class Player extends MovingEntity
 		updateBoundBox();
 		
 		if(lifeStock <= 0)
+		{
 			Main.gameOver();
+			Main.toBeAdded.add(new Explosion(x, y, 8, 8, 2, EntityType.Explosion, 1, 1, 1));
+		}
 	}
 	
 	public void gotHit()
