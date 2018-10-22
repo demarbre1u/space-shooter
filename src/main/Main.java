@@ -37,6 +37,7 @@ public class Main
 		{
 			//Here we set the size of the Display then create it
 			Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
+			Display.setSwapInterval(1);
 			Display.create();
 		} 
 		catch (LWJGLException e) 
