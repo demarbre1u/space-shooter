@@ -7,14 +7,16 @@ import main.Main;
 
 public class Player extends MovingEntity 
 {
-	private int shotDelay;
+	private Weapon weapon;
 	private int lifeStock;
+	private int delayBeforeNextShot;
 	
 	public Player(int x, int y, int w, int h, int speed, EntityType type) 
 	{
 		super(x, y, w, h, speed, type);
-		shotDelay = 30;
+		weapon = new Weapon(15);
 		lifeStock = 3;
+		delayBeforeNextShot = 0;
 	}
 
 	@Override
@@ -44,8 +46,8 @@ public class Player extends MovingEntity
 	public void update() 
 	{
 		checkForInputs();
-		if(shotDelay < 30)
-			shotDelay++;
+		if(weapon.getShotDelay() > delayBeforeNextShot)
+			delayBeforeNextShot++;
 		
 		updateBoundBox();
 		
@@ -93,10 +95,10 @@ public class Player extends MovingEntity
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 		{
-			if(shotDelay >= 30)
+			if(weapon.getShotDelay() <= delayBeforeNextShot)
 			{
-				shotDelay = 0;
-				Main.entity.add(new Missile(x+w, y+(h/2 - 2), 15, 4, 5, EntityType.Missile));
+				delayBeforeNextShot = 0;
+				weapon.spawnMissile(x, y, w, h);
 			}
 		}
 	}
@@ -112,6 +114,26 @@ public class Player extends MovingEntity
 			GL11.glVertex2f(x, y + h );
 		}
 		GL11.glEnd();
+	}
+	
+	public Weapon getWeapon() 
+	{
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) 
+	{
+		this.weapon = weapon;
+	}
+
+	public int getLifeStock() 
+	{
+		return lifeStock;
+	}
+
+	public void setLifeStock(int lifeStock) 
+	{
+		this.lifeStock = lifeStock;
 	}
 	
 	@Override

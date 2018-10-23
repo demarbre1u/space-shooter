@@ -8,10 +8,18 @@ import main.Main;
 
 public class Missile extends MovingEntity 
 {
+	protected int speedY;
 
 	public Missile(int x, int y, int w, int h, int speed, EntityType type) 
 	{
 		super(x, y, w, h, speed, type);
+		speedY = 0;
+	}
+	
+	public Missile(int x, int y, int w, int h, int speedX, int speedY, EntityType type) 
+	{
+		super(x, y, w, h, speedX, type);
+		this.speedY = speedY;
 	}
 
 	@Override
@@ -24,8 +32,9 @@ public class Missile extends MovingEntity
 	public void update() 
 	{
 		x += speed;
+		y += speedY;
 		
-		if(y > Main.WIDTH + 50)
+		if(x > Main.WIDTH + 50)
 			Main.toBeDestroyed.add(this);
 		else
 			updateBoundBox();
@@ -51,5 +60,15 @@ public class Missile extends MovingEntity
 			}
 			Main.toBeDestroyed.add(this);
 		}
+	}
+	
+	public int getSpeedY()
+	{
+		return speedY;
+	}
+	
+	public void setSpeedY(int speed)
+	{
+		speedY = speed;
 	}
 }

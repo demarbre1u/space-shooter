@@ -15,4 +15,16 @@ public class Drawer
 		}
 		GL11.glEnd();
 	}
+	
+	public static void drawLozenge(float posx, float posy, int width, int height)
+	{
+		GL11.glBegin(GL11.GL_QUADS);
+		{
+			GL11.glVertex2f(posx + width/2, posy);
+			GL11.glVertex2f(posx + width, posy + height/2);
+			GL11.glVertex2f(posx + width/2, posy + height);
+			GL11.glVertex2f(posx, posy + height/2);
+		}
+		GL11.glEnd();
+	}
 }

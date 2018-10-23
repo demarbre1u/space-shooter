@@ -7,5 +7,6 @@ public enum EntityType
 	Missile, 
 	Star, 
 	Explosion, 
-	Hazard
+	Hazard, 
+	PowerUp
 }

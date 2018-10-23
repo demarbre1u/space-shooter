@@ -16,6 +16,7 @@ import entity.Enemy;
 import entity.Hazard;
 import entity.MovingEntity;
 import entity.Player;
+import entity.PowerUp;
 import entity.Star;
 
 public class Main 
@@ -35,7 +36,7 @@ public class Main
 	{
 		try 
 		{
-			//Here we set the size of the Display then create it
+			// Here we set the size of the Display then create it
 			Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
 			Display.setSwapInterval(1);
 			Display.create();
@@ -89,14 +90,17 @@ public class Main
 		
 		GL11.glColor3f(1, 1, 1);
 		Text.drawString("Score : " + score, 10, HEIGHT-20);
-	
+		
 		if(! gameOver)
+		{
+			Text.drawString(player.getWeapon().toString(), 10, HEIGHT-60);
 			player.render();
+		}
 		else
 		{
 			GL11.glColor3f(1, 1, 1);
 			Text.drawString("GAME OVER", WIDTH/2 - 30, HEIGHT/2 + 10);
-			Text.drawString("Press 'R' to restart", WIDTH/2 - 60, HEIGHT/2 - 40);
+			Text.drawString("Press R to restart", WIDTH/2 - 60, HEIGHT/2 - 40);
 		}
 	}
 
@@ -132,20 +136,14 @@ public class Main
 			if(player == null)
 				continue;
 			
-			if(e.getType() == EntityType.Enemy)
-				e.checkCollision(player);
-			
-			if(e.getType() == EntityType.Hazard)
+			if(e.getType() == EntityType.Enemy || e.getType() == EntityType.Hazard || e.getType() == EntityType.PowerUp)
 				e.checkCollision(player);
 			
 			if(e.getType() == EntityType.Missile)
 			{
 				for(MovingEntity ent : entity)
 				{
-					if(ent.getType() == EntityType.Enemy)
-						e.checkCollision(ent);
-					
-					if(ent.getType() == EntityType.Hazard)
+					if(ent.getType() == EntityType.Enemy || ent.getType() == EntityType.Hazard)
 						e.checkCollision(ent);
 				}
 			}
@@ -154,7 +152,8 @@ public class Main
 	
 	private void spawningEntities()
 	{
-		if(enemySpawnSpeed >= 100 - score/100)
+		// Spawns enemy
+		if(enemySpawnSpeed >= 100 - Math.log( (score + 1) ) * 10)
 		{
 			int rand = (int) Math.round(Math.random());
 			if(rand == 0)
@@ -167,15 +166,30 @@ public class Main
 		else
 			enemySpawnSpeed++;
 		
+		// Spawn power-up
+		int randPowerUp = (int) Math.round(Math.random() * 1000);
+		// System.out.println("Rand nb : " + randPowerUp);
+		if(randPowerUp == 0)
+			spawnPowerUp();
+		
+		// Spawn background star
 		if(starSpawnSpeed >= 100)
 		{
 			spawnStar();
-			starSpawnSpeed  = 0;
+			starSpawnSpeed = 0;
 		}
 		else
 			starSpawnSpeed++;
 	}
 	
+	private void spawnPowerUp() 
+	{
+		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
+		int size = 20;
+		int speed = 2;
+		entity.add(new PowerUp(WIDTH+100, yAxis, size, size, speed, EntityType.PowerUp));
+	}
+
 	private void spawnStar() 
 	{
 		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
@@ -187,14 +201,14 @@ public class Main
 	private void spawnEnemies() 
 	{
 		int rand = (int) (50 + Math.random() * HEIGHT  - 50);
-		entity.add(new Enemy(WIDTH+100, rand, 40, 30, 2, EntityType.Enemy));
+		entity.add(new Enemy(WIDTH+100, rand, 40, 30, 4, EntityType.Enemy));
 	}
 	
 	private void spawnHazards()
 	{
 		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
 		int size = (int) (50 + Math.random() * 50);
-		entity.add(new Hazard(WIDTH+100, yAxis, size, size, 2, EntityType.Hazard));
+		entity.add(new Hazard(WIDTH+100, yAxis, size, size, 4, EntityType.Hazard));
 	}
 
 	private void destroy() 
