@@ -18,6 +18,7 @@ The currently implemented functionalities :
 
 Functionalities to come (some day, hopefully) :
 - Scoreboard
+- Enemies that fire missiles
 - More type of obstacles
 - Bosses
 - Sound
