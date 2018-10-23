@@ -13,14 +13,13 @@ The currently implemented functionalities :
 - Score system
 - Obstacles and enemies
 - Hit points
+- Power-ups
+- More type of enemies
 
 Functionalities to come (some day, hopefully) :
 - Scoreboard
-- Power-ups
-- More type of enemies
 - More type of obstacles
 - Bosses
-- More stages
 - Sound
 
 ## How to deploy the project
