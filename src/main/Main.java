@@ -18,6 +18,7 @@ import entity.MovingEntity;
 import entity.Player;
 import entity.PowerUp;
 import entity.Star;
+import entity.WavingEnemy;
 
 public class Main 
 {
@@ -201,7 +202,12 @@ public class Main
 	private void spawnEnemies() 
 	{
 		int rand = (int) (50 + Math.random() * HEIGHT  - 50);
-		entity.add(new Enemy(WIDTH+100, rand, 40, 30, 4, 0, EntityType.Enemy));
+		int enemyType = (int) Math.round(Math.random());
+		
+		if(enemyType == 0)
+			entity.add(new Enemy(WIDTH+100, rand, 40, 30, 4, 0, EntityType.Enemy));
+		else
+			entity.add(new WavingEnemy(WIDTH+100, rand, 40, 30, 4, 0, EntityType.Enemy));
 	}
 	
 	private void spawnHazards()
