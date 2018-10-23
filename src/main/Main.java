@@ -72,7 +72,7 @@ public class Main
 	
 	public static void init()
 	{
-		player = new Player(20, HEIGHT/2, 40, 30, 3, EntityType.Player);
+		player = new Player(20, HEIGHT/2, 40, 30, 4, 3, EntityType.Player);
 		entity = new ArrayList<MovingEntity>();
 		toBeDestroyed = new ArrayList<MovingEntity>();
 		toBeAdded = new ArrayList<MovingEntity>();
@@ -153,10 +153,10 @@ public class Main
 	private void spawningEntities()
 	{
 		// Spawns enemy
-		if(enemySpawnSpeed >= 100 - Math.log( (score + 1) ) * 10)
+		if(enemySpawnSpeed >= 100 - Math.log( (score + 1) ) * 5)
 		{
-			int rand = (int) Math.round(Math.random());
-			if(rand == 0)
+			int rand = (int) Math.round(Math.random() * 2);
+			if(rand != 2)
 				spawnEnemies();
 			else
 				spawnHazards();
@@ -186,8 +186,8 @@ public class Main
 	{
 		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
 		int size = 20;
-		int speed = 2;
-		entity.add(new PowerUp(WIDTH+100, yAxis, size, size, speed, EntityType.PowerUp));
+		int speed = 4;
+		entity.add(new PowerUp(WIDTH+100, yAxis, size, size, speed, 0, EntityType.PowerUp));
 	}
 
 	private void spawnStar() 
@@ -195,20 +195,20 @@ public class Main
 		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
 		int size = (int) (1 + Math.random() * 19);
 		int speed = (int) (1 + Math.random());
-		entity.add(0, new Star(WIDTH+100, yAxis, size, size, speed, EntityType.Star));
+		entity.add(0, new Star(WIDTH+100, yAxis, size, size, speed, 0, EntityType.Star));
 	}
 
 	private void spawnEnemies() 
 	{
 		int rand = (int) (50 + Math.random() * HEIGHT  - 50);
-		entity.add(new Enemy(WIDTH+100, rand, 40, 30, 4, EntityType.Enemy));
+		entity.add(new Enemy(WIDTH+100, rand, 40, 30, 4, 0, EntityType.Enemy));
 	}
 	
 	private void spawnHazards()
 	{
 		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
 		int size = (int) (50 + Math.random() * 50);
-		entity.add(new Hazard(WIDTH+100, yAxis, size, size, 4, EntityType.Hazard));
+		entity.add(new Hazard(WIDTH+100, yAxis, size, size, 4, 0, EntityType.Hazard));
 	}
 
 	private void destroy() 

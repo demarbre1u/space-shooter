@@ -7,9 +7,9 @@ import main.Main;
 
 public class Enemy extends MovingEntity
 {
-	public Enemy(int x, int y, int w, int h, int speed, EntityType type)
+	public Enemy(int x, int y, int w, int h, int speedX, int speedY, EntityType type)
 	{
-		super(x, y, w, h, speed, type);
+		super(x, y, w, h, speedX, speedY, type);
 	}
 
 	@Override
@@ -21,7 +21,8 @@ public class Enemy extends MovingEntity
 	@Override
 	public void update() 
 	{
-		x -= speed;
+		x -= speedX;
+		y -= speedY;
 		
 		if(x < 0 - 50)
 			Main.toBeDestroyed.add(this);
@@ -49,7 +50,7 @@ public class Enemy extends MovingEntity
 		{
 			Main.player.gotHit();
 			Main.toBeDestroyed.add(this);
-			Main.toBeAdded.add(new Explosion(x, y, 8, 8, 2, EntityType.Explosion, .8f, .2f, .2f));
+			Main.toBeAdded.add(new Explosion(x, y, 8, 8, 2, 0, EntityType.Explosion, .8f, .2f, .2f));
 		}
 	}
 }

@@ -11,9 +11,9 @@ public class Player extends MovingEntity
 	private int lifeStock;
 	private int delayBeforeNextShot;
 	
-	public Player(int x, int y, int w, int h, int speed, EntityType type) 
+	public Player(int x, int y, int w, int h, int speedX, int speedY, EntityType type) 
 	{
-		super(x, y, w, h, speed, type);
+		super(x, y, w, h, speedX, speedY, type);
 		weapon = new Weapon(15);
 		lifeStock = 3;
 		delayBeforeNextShot = 0;
@@ -54,7 +54,7 @@ public class Player extends MovingEntity
 		if(lifeStock <= 0)
 		{
 			Main.gameOver();
-			Main.toBeAdded.add(new Explosion(x, y, 8, 8, 2, EntityType.Explosion, 1, 1, 1));
+			Main.toBeAdded.add(new Explosion(x, y, 8, 8, 2, 0, EntityType.Explosion, 1, 1, 1));
 		}
 	}
 	
@@ -67,30 +67,30 @@ public class Player extends MovingEntity
 	{
 		if(Keyboard.isKeyDown(Keyboard.KEY_Z))
 		{
-			if(y+h + speed <= Main.HEIGHT)
+			if(y+h + speedY <= Main.HEIGHT)
 			{
-				y += speed;
+				y += speedY;
 			}
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_Q))
 		{
-			if(x-speed >= 0)
+			if(x-speedX >= 0)
 			{
-				x -= speed;
+				x -= speedX;
 			}
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S))
 		{
-			if(y-speed >= 0)
+			if(y-speedY >= 0)
 			{
-				y -= speed;
+				y -= speedY;
 			}
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D))
 		{
-			if(x+w + speed <= Main.WIDTH)
+			if(x+w + speedX <= Main.WIDTH)
 			{
-				x += speed;
+				x += speedX;
 			}
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))

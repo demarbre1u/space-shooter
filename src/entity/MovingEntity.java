@@ -7,17 +7,18 @@ import main.Main;
 
 public abstract class MovingEntity 
 {
-	protected int x, y, w, h, speed;
+	protected int x, y, w, h, speedX, speedY;
 	protected EntityType type; 
 	protected Rectangle boundBox;
 	
-	public MovingEntity(int x, int y, int w, int h, int speed, EntityType type)
+	public MovingEntity(int x, int y, int w, int h, int speedX, int speedY, EntityType type)
 	{
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		this.h = h;
-		this.speed = speed;
+		this.speedX = speedX;
+		this.speedY = speedY;
 		boundBox = new Rectangle(x, y, w, h);
 		this.type = type;
 	}

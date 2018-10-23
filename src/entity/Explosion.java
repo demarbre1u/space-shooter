@@ -11,9 +11,9 @@ public class Explosion extends MovingEntity
 	private int distance;
 	private float r, g, b;
 	
-	public Explosion(int x, int y, int w, int h, int speed, EntityType type, float r, float g, float b) 
+	public Explosion(int x, int y, int w, int h, int speedX, int speedY, EntityType type, float r, float g, float b) 
 	{
-		super(x, y, w, h, speed, type);
+		super(x, y, w, h, speedX, speedY, type);
 		distance = 0;
 		this.r = r;
 		this.g = g;

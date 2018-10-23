@@ -14,7 +14,7 @@ public class Weapon
 
 	public void spawnMissile(int x, int y, int w, int h) 
 	{
-		Main.entity.add(new Missile(x+w, y+(h/2 - 2), 15, 4, 8, EntityType.Missile));
+		Main.entity.add(new Missile(x+w, y+(h/2 - 2), 15, 4, 8, 0, EntityType.Missile));
 	}
 
 	public int getShotDelay() 

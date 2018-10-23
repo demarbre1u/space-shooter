@@ -9,9 +9,9 @@ import main.Main;
 public class Star extends MovingEntity
 {
 
-	public Star(int x, int y, int w, int h, int speed, EntityType type) 
+	public Star(int x, int y, int w, int h, int speedX, int speedY, EntityType type) 
 	{
-		super(x, y, w, h, speed, type);
+		super(x, y, w, h, speedX, speedY, type);
 	}
 
 	@Override
@@ -23,7 +23,8 @@ public class Star extends MovingEntity
 	@Override
 	public void update() 
 	{
-		x -= speed;
+		x -= speedX;
+		y -= speedY;
 		
 		if(x < -100)
 			Main.toBeDestroyed.add(this);

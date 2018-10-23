@@ -11,9 +11,9 @@ public class PowerUp extends MovingEntity
 	public static Weapon[] possibleWeapons = {new WeaponTripleShot(20)};
 	protected Weapon weapon;
 	
-	public PowerUp(int x, int y, int w, int h, int speed, EntityType type) 
+	public PowerUp(int x, int y, int w, int h, int speedX, int speedY, EntityType type) 
 	{
-		super(x, y, w, h, speed, type);
+		super(x, y, w, h, speedX, speedY, type);
 		
 		int weaponType = (int) (Math.random() * possibleWeapons.length);
 		weapon = possibleWeapons[weaponType];
@@ -28,7 +28,8 @@ public class PowerUp extends MovingEntity
 	@Override
 	public void update() 
 	{
-		x -= speed;
+		x -= speedX;
+		y -= speedY;
 		
 		if(x < -100)
 			Main.toBeDestroyed.add(this);

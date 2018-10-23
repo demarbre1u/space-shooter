@@ -15,7 +15,7 @@ public class WeaponTripleShot extends Weapon
 		int scatterY = 1;
 		
 		Main.entity.add(new Missile(x+w, y+(h/2 - 2), 15, 4, 8, scatterY, EntityType.Missile));
-		Main.entity.add(new Missile(x+w, y+(h/2 - 2), 15, 4, 8, EntityType.Missile));
+		Main.entity.add(new Missile(x+w, y+(h/2 - 2), 15, 4, 8, 0, EntityType.Missile));
 		Main.entity.add(new Missile(x+w, y+(h/2 - 2), 15, 4, 8, -scatterY, EntityType.Missile));
 	} 
 	
