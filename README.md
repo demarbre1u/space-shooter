@@ -6,10 +6,9 @@ This project is a simple Space Shooter game made using Light-Weight Java Game Li
 
 ## How to deploy the project
 
-Using [http://ninjacave.com/jarsplice](JarSplice)
+Using [JarSplice](http://ninjacave.com/jarsplice) :
 - Export a non-runnable ```.jar``` file
 - Add the required ```.jar``` lib (LWJGL, etc)
 - Add natives for the targeted OS (Windows, Linux)
 - Create the FatJar
 - Done :)
-
