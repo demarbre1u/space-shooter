@@ -2,8 +2,8 @@ package entity;
 
 import org.lwjgl.opengl.GL11;
 
-import data.Drawer;
 import data.EntityType;
+import helper.Drawer;
 import main.Main;
 
 public class Missile extends MovingEntity 

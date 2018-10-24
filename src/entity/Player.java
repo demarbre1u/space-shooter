@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import data.EntityType;
 import main.Main;
+import weapon.Weapon;
 
 public class Player extends MovingEntity 
 {

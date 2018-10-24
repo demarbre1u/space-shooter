@@ -1,6 +1,7 @@
-package entity;
+package weapon;
 
 import data.EntityType;
+import entity.Missile;
 import main.Main;
 
 public class Weapon 

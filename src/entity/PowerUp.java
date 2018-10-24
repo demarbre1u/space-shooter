@@ -2,9 +2,11 @@ package entity;
 
 import org.lwjgl.opengl.GL11;
 
-import data.Drawer;
 import data.EntityType;
+import helper.Drawer;
 import main.Main;
+import weapon.Weapon;
+import weapon.WeaponTripleShot;
 
 public class PowerUp extends MovingEntity
 {

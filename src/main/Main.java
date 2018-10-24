@@ -9,9 +9,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
-import data.Drawer;
 import data.EntityType;
-import data.Text;
 import entity.Enemy;
 import entity.Hazard;
 import entity.MovingEntity;
@@ -19,6 +17,8 @@ import entity.Player;
 import entity.PowerUp;
 import entity.Star;
 import entity.WavingEnemy;
+import helper.Drawer;
+import helper.Text;
 
 public class Main 
 {
