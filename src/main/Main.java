@@ -15,6 +15,7 @@ import entity.Hazard;
 import entity.MovingEntity;
 import entity.Player;
 import entity.PowerUp;
+import entity.PowerUpTripleShot;
 import entity.Star;
 import entity.WavingEnemy;
 import helper.Drawer;
@@ -188,7 +189,7 @@ public class Main
 		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
 		int size = 20;
 		int speed = 4;
-		entity.add(new PowerUp(WIDTH+100, yAxis, size, size, speed, 0, EntityType.PowerUp));
+		entity.add(new PowerUpTripleShot(WIDTH+100, yAxis, size, size, speed, 0, EntityType.PowerUp));
 	}
 
 	private void spawnStar() 

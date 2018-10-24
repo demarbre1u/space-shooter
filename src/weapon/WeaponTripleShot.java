@@ -6,9 +6,9 @@ import main.Main;
 
 public class WeaponTripleShot extends Weapon
 {
-	public WeaponTripleShot(int delay) 
+	public WeaponTripleShot() 
 	{
-		super(delay);
+		shotDelay = 25;
 	}
 
 	public void spawnMissile(int x, int y, int w, int h) 

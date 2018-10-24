@@ -4,21 +4,14 @@ import org.lwjgl.opengl.GL11;
 
 import data.EntityType;
 import helper.Drawer;
+import interfaces.EffectTargetable;
 import main.Main;
-import weapon.Weapon;
-import weapon.WeaponTripleShot;
 
-public class PowerUp extends MovingEntity
-{
-	public static Weapon[] possibleWeapons = {new WeaponTripleShot(20)};
-	protected Weapon weapon;
-	
+public abstract class PowerUp extends MovingEntity
+{	
 	public PowerUp(int x, int y, int w, int h, int speedX, int speedY, EntityType type) 
 	{
 		super(x, y, w, h, speedX, speedY, type);
-		
-		int weaponType = (int) (Math.random() * possibleWeapons.length);
-		weapon = possibleWeapons[weaponType];
 	}
 
 	@Override
@@ -52,11 +45,12 @@ public class PowerUp extends MovingEntity
 		{
 			if(player.getType() == EntityType.Player)
 			{
-				((Player) player).setWeapon(weapon);
+				applyEffect((EffectTargetable) player);
 				Main.toBeDestroyed.add(this);
 				Main.score += 20;
 			}
 		}
 	}
 
+	public abstract void applyEffect(EffectTargetable target);
 }

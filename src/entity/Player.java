@@ -2,11 +2,13 @@ package entity;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+
 import data.EntityType;
+import interfaces.EffectTargetable;
 import main.Main;
 import weapon.Weapon;
 
-public class Player extends MovingEntity 
+public class Player extends MovingEntity implements EffectTargetable
 {
 	private Weapon weapon;
 	private int lifeStock;
@@ -15,7 +17,7 @@ public class Player extends MovingEntity
 	public Player(int x, int y, int w, int h, int speedX, int speedY, EntityType type) 
 	{
 		super(x, y, w, h, speedX, speedY, type);
-		weapon = new Weapon(15);
+		weapon = new Weapon();
 		lifeStock = 3;
 		delayBeforeNextShot = 0;
 	}

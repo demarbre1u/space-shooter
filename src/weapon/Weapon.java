@@ -6,11 +6,11 @@ import main.Main;
 
 public class Weapon 
 {
-	private int shotDelay;
+	protected int shotDelay;
 	
-	public Weapon(int delay)
+	public Weapon()
 	{
-		shotDelay = delay;
+		shotDelay = 15;
 	}
 
 	public void spawnMissile(int x, int y, int w, int h) 
