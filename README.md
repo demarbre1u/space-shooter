@@ -6,22 +6,31 @@
 
 This project is a simple Space Shooter game made using Light-Weight Java Game Library (LWJGL).
 
-## Functionalities
+## How to play
 
-The currently implemented functionalities :
+The game controls :
+ - W, A, S, D : move spaceship on screen
+ - Spacebar : fire projectiles
+ - R : when on game over screen, restarts the game
+
+## Features
+
+The currently implemented features :
 - Infinite scrolling
 - Score system
 - Obstacles and enemies
 - Hit points
 - Power-ups
-- More type of enemies
+- More types of enemies
 
-Functionalities to come (some day, hopefully) :
+Features to come (some day, hopefully) :
 - Scoreboard
 - Enemies that fire missiles
-- More type of obstacles
+- More types of obstacles
 - Bosses
 - Sound
+- Pause menu
+- Title menu
 
 ## How to deploy the project
 
