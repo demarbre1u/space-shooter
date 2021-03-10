@@ -78,6 +78,7 @@ public class Main
 		try 
 		{
 			// Here we set the size of the Display then create it
+			Display.setTitle("Java Space Shooter");
 			Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
 			Display.setSwapInterval(1);
 			Display.create();
