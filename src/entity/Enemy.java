@@ -64,10 +64,10 @@ public class Enemy extends MovingEntity
 		GL11.glColor3f(.8f,.1f,.1f);
 		GL11.glBegin(GL11.GL_QUADS);
 		{
-			GL11.glVertex2f(x, y+10);
+			GL11.glVertex2f(x, y + 13);
 			GL11.glVertex2f(x + w, y);
 			GL11.glVertex2f(x + w, y + h);
-			GL11.glVertex2f(x, y + h-10);
+			GL11.glVertex2f(x, y + h - 13);
 		}
 		GL11.glEnd();
 	}

@@ -173,8 +173,8 @@ public class Player extends MovingEntity implements EffectTargetable
 		GL11.glBegin(GL11.GL_QUADS);
 		{
 			GL11.glVertex2f(x, y);
-			GL11.glVertex2f(x + w, y+10);
-			GL11.glVertex2f(x + w, y + h-10);
+			GL11.glVertex2f(x + w, y + 13);
+			GL11.glVertex2f(x + w, y + h - 13);
 			GL11.glVertex2f(x, y + h );
 		}
 		GL11.glEnd();

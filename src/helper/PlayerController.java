@@ -8,27 +8,27 @@ import org.lwjgl.input.Keyboard;
 public class PlayerController
 {
     /**
-     * The key code for the UP key
+     * The key code for the UP control
      */
     public int keyUP;
 
     /**
-     * The key code for the LEFT key
+     * The key code for the LEFT control
      */
     public int keyLEFT;
 
     /**
-     * The key code for the RIGHT key
+     * The key code for the RIGHT control
      */
     public int keyRIGHT;
 
     /**
-     * The key code for the DOWN key
+     * The key code for the DOWN control
      */
     public int keyDOWN;
 
     /**
-     * The key code for the ACTION key
+     * The key code for the ACTION control
      */
     public int keyACTION;
 
