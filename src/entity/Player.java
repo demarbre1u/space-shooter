@@ -1,12 +1,13 @@
 package entity;
 
+import helper.PlayerController;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
 import data.EntityType;
 import interfaces.EffectTargetable;
 import main.Main;
 import weapon.Weapon;
+import java.awt.im.InputContext;
 
 /**
  * Player class
@@ -27,6 +28,11 @@ public class Player extends MovingEntity implements EffectTargetable
 	 * The delay at which the player can fire projectiles
 	 */
 	private int delayBeforeNextShot;
+
+	/**
+	 * The class that handles the player controls
+	 */
+	final private PlayerController playerController;
 
 	/**
 	 * Player constructor
@@ -52,6 +58,11 @@ public class Player extends MovingEntity implements EffectTargetable
 		weapon = new Weapon();
 		lifeStock = 3;
 		delayBeforeNextShot = 0;
+
+		// Checks the keyboard layout of the player
+		InputContext context = InputContext.getInstance();
+		String language = context.getLocale().toLanguageTag();
+		playerController = new PlayerController(language);
 	}
 
 	/**
@@ -115,35 +126,35 @@ public class Player extends MovingEntity implements EffectTargetable
 	 */
 	private void checkForInputs() 
 	{
-		if(Keyboard.isKeyDown(Keyboard.KEY_Z))
+		if(Keyboard.isKeyDown(playerController.keyUP))
 		{
 			if(y+h + speedY <= Main.HEIGHT)
 			{
 				y += speedY;
 			}
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_Q))
+		if(Keyboard.isKeyDown(playerController.keyLEFT))
 		{
 			if(x-speedX >= 0)
 			{
 				x -= speedX;
 			}
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_S))
+		if(Keyboard.isKeyDown(playerController.keyDOWN))
 		{
 			if(y-speedY >= 0)
 			{
 				y -= speedY;
 			}
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_D))
+		if(Keyboard.isKeyDown(playerController.keyRIGHT))
 		{
 			if(x+w + speedX <= Main.WIDTH)
 			{
 				x += speedX;
 			}
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+		if(Keyboard.isKeyDown(playerController.keyACTION))
 		{
 			if(weapon.getShotDelay() <= delayBeforeNextShot)
 			{
