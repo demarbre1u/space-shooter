@@ -8,12 +8,44 @@ import interfaces.EffectTargetable;
 import main.Main;
 import weapon.Weapon;
 
+/**
+ * Player class
+ */
 public class Player extends MovingEntity implements EffectTargetable
 {
+	/**
+	 * The current weapon of the player
+	 */
 	private Weapon weapon;
+
+	/**
+	 * The current number of life stock the player has
+	 */
 	private int lifeStock;
+
+	/**
+	 * The delay at which the player can fire projectiles
+	 */
 	private int delayBeforeNextShot;
-	
+
+	/**
+	 * Player constructor
+	 *
+	 * @param x
+	 * 		The X position of the entity on the screen
+	 * @param y
+	 * 		The Y position of the entity on the screen
+	 * @param w
+	 * 		The width of the entity
+	 * @param h
+	 * 		The height of the entity
+	 * @param speedX
+	 *		The speed of the entity on the X axis
+	 * @param speedY
+	 * 		The speed of the entity on the Y axis
+	 * @param type
+	 * 		The type of the entity
+	 */
 	public Player(int x, int y, int w, int h, int speedX, int speedY, EntityType type) 
 	{
 		super(x, y, w, h, speedX, speedY, type);
@@ -22,6 +54,9 @@ public class Player extends MovingEntity implements EffectTargetable
 		delayBeforeNextShot = 0;
 	}
 
+	/**
+	 * Renders the player and his life stocks on the screen
+	 */
 	@Override
 	public void render() 
 	{
@@ -29,9 +64,12 @@ public class Player extends MovingEntity implements EffectTargetable
 		drawLife();
 	}
 
+	/**
+	 * Draws the player life stocks
+	 */
 	private void drawLife() 
 	{
-		for(int i = 0 ; i< lifeStock ; i++)
+		for(int i = 0 ; i < lifeStock ; i++)
 		{
 			GL11.glColor3f(.5f,1,.5f);
 			GL11.glBegin(GL11.GL_QUADS);
@@ -45,6 +83,9 @@ public class Player extends MovingEntity implements EffectTargetable
 		}
 	}
 
+	/**
+	 * Updates the player data
+	 */
 	@Override
 	public void update() 
 	{
@@ -60,12 +101,18 @@ public class Player extends MovingEntity implements EffectTargetable
 			Main.toBeAdded.add(new Explosion(x, y, 8, 8, 2, 0, EntityType.Explosion, 1, 1, 1));
 		}
 	}
-	
+
+	/**
+	 * Removes a life stock
+	 */
 	public void gotHit()
 	{
 		lifeStock--;
 	}
 
+	/**
+	 * Checks for the player's input
+	 */
 	private void checkForInputs() 
 	{
 		if(Keyboard.isKeyDown(Keyboard.KEY_Z))
@@ -106,6 +153,9 @@ public class Player extends MovingEntity implements EffectTargetable
 		}
 	}
 
+	/**
+	 * Draws the player on screen
+	 */
 	public void drawPlayer()
 	{
 		GL11.glColor3f(1,1,1);
@@ -118,27 +168,35 @@ public class Player extends MovingEntity implements EffectTargetable
 		}
 		GL11.glEnd();
 	}
-	
+
+	/**
+	 * Returns the current weapon the player has
+	 *
+	 * @return Weapon
+	 * 		The weapon the player current has
+	 */
 	public Weapon getWeapon() 
 	{
 		return weapon;
 	}
 
+	/**
+	 * Changes the weapon of the player
+	 *
+	 * @param weapon
+	 * 		The new weapon
+	 */
 	public void setWeapon(Weapon weapon) 
 	{
 		this.weapon = weapon;
 	}
 
-	public int getLifeStock() 
-	{
-		return lifeStock;
-	}
-
-	public void setLifeStock(int lifeStock) 
-	{
-		this.lifeStock = lifeStock;
-	}
-	
+	/**
+	 * Checks if the player and an entity are colliding
+	 *
+	 * @param e
+	 * 		The entity to check collision with
+	 */
 	@Override
 	public void checkCollision(MovingEntity e) {}
 }

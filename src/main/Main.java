@@ -2,38 +2,77 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-
-import data.EntityType;
 import entity.Enemy;
 import entity.Hazard;
 import entity.MovingEntity;
 import entity.Player;
-import entity.PowerUp;
 import entity.PowerUpTripleShot;
 import entity.Star;
 import entity.WavingEnemy;
 import helper.Drawer;
 import helper.Text;
+import data.EntityType;
 
+/**
+ * Main class handling the game logic
+ *
+ * @author Allan DEMARBRE <demarbreallan.dev@gmail.com>
+ */
 public class Main 
 {
+	/**
+	 * Width and height of the game window
+	 */
 	public static int WIDTH = 600, HEIGHT = 400;
+
+	/**
+	 * Speed at which enemies are moving
+	 */
 	private int enemySpawnSpeed = 200;
+
+	/**
+	 * Speed at which stars are spawned in the background
+	 */
 	private int starSpawnSpeed = 100;
+
+	/**
+	 * The score of the player
+	 */
 	public static int score;
+
+	/**
+	 * The player data
+	 */
 	public static Player player;
+
+	/**
+	 * List of current entities
+	 */
 	public static List<MovingEntity> entity;
+
+	/**
+	 * List of entities to be destroyed at next update
+	 */
 	public static List<MovingEntity> toBeDestroyed;
+
+	/**
+	 * List of entities to be added to the current entities at next update
+	 */
 	public static List<MovingEntity> toBeAdded;
-	
+
+	/**
+	 * Whether the game is over or not
+	 */
 	private static boolean gameOver;
-		
+
+	/**
+	 * Creates the game display and the basic game loop
+	 */
 	public void createDisplay() 
 	{
 		try 
@@ -72,17 +111,23 @@ public class Main
 		}
 		Display.destroy();
 	}
-	
+
+	/**
+	 * Inits the game data
+	 */
 	public static void init()
 	{
 		player = new Player(20, HEIGHT/2, 40, 30, 4, 3, EntityType.Player);
-		entity = new ArrayList<MovingEntity>();
-		toBeDestroyed = new ArrayList<MovingEntity>();
-		toBeAdded = new ArrayList<MovingEntity>();
+		entity = new ArrayList<>();
+		toBeDestroyed = new ArrayList<>();
+		toBeAdded = new ArrayList<>();
 		gameOver = false;
 		score = 0;
 	}
-	
+
+	/**
+	 * Renders graphics on the screen
+	 */
 	private void render() 
 	{
 		drawBackground();
@@ -107,6 +152,9 @@ public class Main
 		}
 	}
 
+	/**
+	 * Updates the game data
+	 */
 	private void update() 
 	{
 		destroy();
@@ -122,7 +170,10 @@ public class Main
 		else
 			checkForRestart();
 	}
-	
+
+	/**
+	 * Checks if the player wants to restart the game
+	 */
 	private void checkForRestart()
 	{
 		if(Keyboard.isKeyDown(Keyboard.KEY_R))
@@ -130,7 +181,10 @@ public class Main
 			init();
 		}
 	}
-	
+
+	/**
+	 * Checks if entities are colliding
+	 */
 	private void checkCollisions()
 	{
 		for(MovingEntity e : entity)
@@ -152,7 +206,10 @@ public class Main
 			}
 		}
 	}
-	
+
+	/**
+	 * Spawns the various entities of the game
+	 */
 	private void spawningEntities()
 	{
 		// Spawns enemy
@@ -184,7 +241,10 @@ public class Main
 		else
 			starSpawnSpeed++;
 	}
-	
+
+	/**
+	 * Spawns a power-up
+	 */
 	private void spawnPowerUp() 
 	{
 		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
@@ -193,6 +253,9 @@ public class Main
 		entity.add(new PowerUpTripleShot(WIDTH+100, yAxis, size, size, speed, 0, EntityType.PowerUp));
 	}
 
+	/**
+	 * Spawns a star
+	 */
 	private void spawnStar() 
 	{
 		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
@@ -201,6 +264,9 @@ public class Main
 		entity.add(0, new Star(WIDTH+100, yAxis, size, size, speed, 0, EntityType.Star));
 	}
 
+	/**
+	 * Spawns enemies
+	 */
 	private void spawnEnemies() 
 	{
 		int rand = (int) (50 + Math.random() * HEIGHT  - 50);
@@ -211,7 +277,10 @@ public class Main
 		else
 			entity.add(new WavingEnemy(WIDTH+100, rand, 40, 30, 4, 0, EntityType.Enemy));
 	}
-	
+
+	/**
+	 * Spawns hazards
+	 */
 	private void spawnHazards()
 	{
 		int yAxis = (int) (50 + Math.random() * HEIGHT - 50);
@@ -219,39 +288,49 @@ public class Main
 		entity.add(new Hazard(WIDTH+100, yAxis, size, size, 4, 0, EntityType.Hazard));
 	}
 
+	/**
+	 * Destroys the entities that need to be destroyed
+	 */
 	private void destroy() 
 	{
-		for(MovingEntity e : toBeDestroyed)
-		{
-			entity.remove(e);
-		}
-		
+		entity.removeAll(toBeDestroyed);
 		toBeDestroyed.clear();
 	}
-	
+
+	/**
+	 * Adds the entities that need to be added to the current entities
+	 */
 	private void add()
 	{
-		for(MovingEntity e : toBeAdded)
-		{
-			entity.add(e);
-		}
-		
+		entity.addAll(toBeAdded);
 		toBeAdded.clear();
 	}
 
+	/**
+	 * Changes game data when the game is over
+	 */
 	public static void gameOver() 
 	{
 		gameOver = true;
 		player = null;
 	}
-	
+
+	/**
+	 * Draws the game background
+	 */
 	public void drawBackground()
 	{
 		GL11.glColor3f(0.2f, 0.2f, 0.2f);
 		Drawer.drawRect(0, 0, WIDTH, HEIGHT);
 	}
 
-	public static void main(String args[])
+	/**
+	 * Entry point
+	 *
+	 * @param args
+	 * 		Arguments passed to the application
+	 */
+	public static void main(String[] args)
 	{
 		Main display = new Main();
 		init();
