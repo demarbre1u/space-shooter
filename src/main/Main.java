@@ -66,7 +66,8 @@ public class Main
 			update();
 			render();
 			//////////////////////////////////////////////////////////////////
-			
+
+			Display.sync(60);
 			Display.update();
 		}
 		Display.destroy();
