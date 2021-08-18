@@ -2,7 +2,9 @@
 
 ## What is this project
 
-![SpaceShooter Screen](https://github.com/demarbre1u/SpaceShooter/blob/master/img/screen_space_shooter.png)
+<p align="center">
+ <img src="https://github.com/demarbre1u/SpaceShooter/blob/master/img/screen_space_shooter.png" alt="SpaceShooter screen"/>
+</p>
 
 This project is a simple Space Shooter game made using Light-Weight Java Game Library (LWJGL).
 
