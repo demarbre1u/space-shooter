@@ -1,4 +1,4 @@
-# SpaceShooter
+# Space Shooter
 
 ## What is this project
 
