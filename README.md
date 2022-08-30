@@ -13,7 +13,7 @@ This project is a simple Space Shooter game made using Light-Weight Java Game Li
 The game controls :
  - W, A, S, D : move spaceship on screen
  - Spacebar : fire projectiles
- - R : when on game over screen, restarts the game
+ - R : when on the game over screen, restarts the game
 
 ## Features
 
